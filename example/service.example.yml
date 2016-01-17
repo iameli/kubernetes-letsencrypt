@@ -7,7 +7,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: letsencrypt-generate-certs
+    app: letsencrypt
   ports:
     - name: http
       protocol: TCP

@@ -10,10 +10,13 @@ RUN cd /usr/bin && \
   python -c "from urllib import urlretrieve; urlretrieve('$KUBE_URL', 'kubernetes-latest.tar.gz')" && \
   tar xzf kubernetes-latest.tar.gz && \
   mv kubernetes/platforms/linux/amd64/kubectl ./kubectl && \
-  rm -rf ./kubernetes-latest.tar.gz ./kubernetes
+  rm -rf ./kubernetes-latest.tar.gz ./kubernetes && \
+  mkdir /webroot
 
 WORKDIR /app
 ADD scripts/get-cert.sh /app/get-cert.sh
 ADD scripts/make-webroot-map.py /app/make-webroot-map.py
+ADD scripts/entrypoint.sh /app/entrypoint.sh
 
-ENTRYPOINT ["/app/get-cert.sh"]
+# Start up the HTTP server at our webroot.
+ENTRYPOINT ["/app/entrypoint.sh"]

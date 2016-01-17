@@ -1,0 +1,40 @@
+
+# This is an example of a replication controller you'd run.
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: letsencrypt
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    app: letsencrypt
+  template:
+    metadata:
+      name: letsencrypt
+      labels:
+        app: letsencrypt
+    spec:
+      containers:
+      - name: letsencrypt
+        image: docker.io/iameli/kubernetes-letsencrypt
+        imagePullPolicy: Always
+        env:
+          - name: tos
+            value: "true"
+          - name: country
+            value: US
+          - name: state
+            value: Washington
+          - name: town
+            value: Seattle
+          - name: organization
+            value: Dandiprat Industries
+          - name: email
+            value: eli@streamprov.com
+          - name: secretName
+            value: letsencrypt-ssl
+          - name: acmeServer
+            value: https://acme-staging.api.letsencrypt.org/directory
+          - name: namespace
+            value: default
