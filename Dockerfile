@@ -13,6 +13,7 @@ RUN cd /usr/bin && \
   rm -rf ./kubernetes-latest.tar.gz ./kubernetes
 
 WORKDIR /app
-ADD get-cert.sh /app/get-cert.sh
+ADD scripts/get-cert.sh /app/get-cert.sh
+ADD scripts/make-webroot-map.py /app/make-webroot-map.py
 
 ENTRYPOINT ["/app/get-cert.sh"]

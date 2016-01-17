@@ -32,6 +32,7 @@ namespace="${namespace:-default}"
 key="key.pem"
 csr="signreq.der"
 newSecretFile="newsecret.yml"
+rawDomains=$*
 
 function log() {
   echo ""
@@ -98,7 +99,6 @@ openssl req \
 
 log "Retrieving new cert with letsencrypt"
 letsencrypt certonly \
-  --authenticator standalone \
   --server "$acmeServer" \
   --text \
   --agree-tos \
@@ -106,8 +106,9 @@ letsencrypt certonly \
   --logs-dir letsencrypt/log \
   --work-dir letsencrypt/lib \
   --email "$email" \
-  --standalone-supported-challenges http-01 \
-  --csr "$csr"
+  --csr "$csr" \
+  --authenticator webroot \
+  --webroot-map "$(./make-webroot-map.py $rawDomains)"
 
 log "Generating secret"
 (cat << EOF
