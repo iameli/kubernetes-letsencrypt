@@ -16,6 +16,7 @@ This project aims to be a painless way to get letsencrypt SSL certificates into 
       listen 80;
       location /.well-known {
         proxy_pass http://letsencrypt.default.svc.cluster.local;
+      }
     }
     ```
 1. Customize `example/run.sh` with the list of domains for which you'd like to generate a certificate. Now you're
