@@ -100,7 +100,7 @@ openssl req \
   -config "$sslcnf"
 
 log "Retrieving new cert with letsencrypt"
-letsencrypt certonly \
+certbot certonly \
   --server "$acmeServer" \
   --text \
   --agree-tos \
@@ -110,7 +110,7 @@ letsencrypt certonly \
   --email "$email" \
   --csr "$csr" \
   --authenticator webroot \
-  --webroot-map "$($DIR/make-webroot-map.py $rawDomains)"
+  --webroot-path "/webroot"
 
 log "Generating secret"
 (cat << EOF
