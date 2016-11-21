@@ -31,7 +31,7 @@ spec:
           - name: organization
             value: Dandiprat Industries
           - name: email
-            value: eli@streamprov.com
+            value: eli@stream.kitchen
           - name: secretName
             value: letsencrypt-ssl
           - name: acmeServer

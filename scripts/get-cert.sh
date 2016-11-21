@@ -24,6 +24,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 # Set up optional parameters
 acmeServer="${acmeServer:-https://acme-v01.api.letsencrypt.org/directory}"
 namespace="${namespace:-default}"
@@ -108,7 +110,7 @@ letsencrypt certonly \
   --email "$email" \
   --csr "$csr" \
   --authenticator webroot \
-  --webroot-map "$(./make-webroot-map.py $rawDomains)"
+  --webroot-map "$($DIR/make-webroot-map.py $rawDomains)"
 
 log "Generating secret"
 (cat << EOF
@@ -134,5 +136,9 @@ kubectl get -f "$newSecretFile" > /dev/null && (
   log "Secret does not exist, running kubectl create"
   kubectl create -f "$newSecretFile"
 )
+
+rm -rf $DIR/*.pem
+rm -rf $DIR/*.der
+rm -rf $DIR/*.yml
 
 log "Done!"
