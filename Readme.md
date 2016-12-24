@@ -1,3 +1,10 @@
+
+# deprecated
+
+I've moved over to [kube-lego](https://github.com/jetstack/kube-lego) for my cert retrieval, so I guess that means this project is unmaintained. They're integrated with a couple ingress controllers and autogenerate certs based on ingresses and other cool stuff like that.
+
+This project is still maybe useful if you're on a quest to string some bash scripts together and get TLS certs for whatever reason.
+
 # kubernetes-letsencrypt
 
 This project aims to be a painless way to get letsencrypt SSL certificates into your Kubernetes cluster.
